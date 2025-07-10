@@ -1,0 +1,6 @@
+streamlit
+langchain
+langchain-openai
+langchain-mongodb
+python-dotenv
+Chroma
