@@ -4,5 +4,5 @@ langchain-openai
 langchain-mongodb
 python-dotenv
 langchain-community
-Chroma
+chromadb
 pypdf
