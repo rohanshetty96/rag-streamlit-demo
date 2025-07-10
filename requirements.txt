@@ -5,3 +5,4 @@ langchain-mongodb
 python-dotenv
 langchain-community
 Chroma
+pypdf
