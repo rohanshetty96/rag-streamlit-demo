@@ -21,3 +21,15 @@ git clone https://github.com/your-username/rag-streamlit-demo.git
 cd rag-streamlit-demo
 pip install -r requirements.txt
 ```
+# RAG PDF Chat with LangChain + Streamlit
+
+📘 Ask questions over your own PDFs or a preloaded database using a RAG pipeline.
+
+🚀 [Live Demo](https://rag-streamlit-demo.onrender.com)
+
+---
+
+This app supports:
+- PDF uploads for custom document QA
+- MongoDB Atlas vector search for fallback
+- LangChain + OpenAI integration
