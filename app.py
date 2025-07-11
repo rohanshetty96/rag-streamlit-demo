@@ -72,17 +72,20 @@ rag_chain = {
 # Run RAG
 if query:
     with st.spinner(f"🧠 Answering using: {source_type}..."):
-        docs = retriever.invoke(query)
+        # 🧠 Only run the RAG chain once
         answer = rag_chain.invoke(query)
+
+        # 🧪 Extract context chunks again to display only if relevant
+        docs = retriever.invoke(query)
 
     st.markdown("### 💬 Answer")
     st.write(answer)
 
-    # 🛑 Only show chunks if the model didn't say "I don't know"
-    if "don't know" not in answer.lower():
+    # ✅ Only show chunks if the answer is not vague
+    if any(keyword in answer.lower() for keyword in ["don't know", "not sure", "cannot answer", "no information"]):
+        st.info("No relevant information found in the document.")
+    else:
         st.markdown("### 🔍 Top Matching Chunks")
         for i, doc in enumerate(docs):
             st.markdown(f"**Chunk {i+1}**")
             st.info(doc.page_content[:1000])
-    else:
-        st.info("No relevant information found in the document.")
