@@ -35,7 +35,7 @@ if pdf_file:
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
     docs = text_splitter.split_documents(pages)
 
-    vectorstore = Chroma.from_documents(docs, embeddings)
+    vectorstore = Chroma.from_documents(docs, embeddings, persist_directory=None)
     retriever = vectorstore.as_retriever(search_kwargs={"k": 10})
     source_type = "User-uploaded PDF"
 else:
