@@ -47,7 +47,7 @@ else:
     )
     retriever = vectorstore.as_retriever(
         search_type="similarity",
-        search_kwargs={"k": 10, "pre_filter": {"hasCode": False}, "score_threshold": 0.01}
+        search_kwargs={"k": 10, "pre_filter": {"hasCode": False}, "score_threshold": 0.7}
     )
     source_type = "Preloaded MongoDB PDF"
 
@@ -73,12 +73,16 @@ rag_chain = {
 if query:
     with st.spinner(f"🧠 Answering using: {source_type}..."):
         docs = retriever.invoke(query)
-        answer = rag_chain.invoke(query)
 
-    st.markdown("### 💬 Answer")
-    st.write(answer)
+        if not docs:
+            st.warning("🤖 Sorry, I couldn't find any relevant information.")
+        else:
+            answer = rag_chain.invoke(query)
 
-    st.markdown("### 🔍 Top 10 Matching Chunks")
-    for i, doc in enumerate(docs):
-        st.markdown(f"**Chunk {i+1}**")
-        st.info(doc.page_content[:1000])
+            st.markdown("### 💬 Answer")
+            st.write(answer)
+
+            st.markdown("### 🔍 Top Matching Chunks")
+            for i, doc in enumerate(docs):
+                st.markdown(f"**Chunk {i+1}**")
+                st.info(doc.page_content[:1000])
